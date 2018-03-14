@@ -1,0 +1,14 @@
+version: '3'
+services:
+
+  composer:
+    image: composer/composer:php7
+    restart: 'no'
+    command: install
+    volumes:
+      - .:/app
+
+  php:
+    image: php:7.1-fpm
+    volumes:
+      - .:/var/www/html
