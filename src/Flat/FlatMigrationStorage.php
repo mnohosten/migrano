@@ -34,7 +34,7 @@ class FlatMigrationStorage implements MigrationStorage
     {
         $migrationFiles = [];
         foreach (new DirectoryIterator($this->path) as $fileInfo) {
-            if($fileInfo->isDot()) continue;
+            if($this->isInvalidMigrationFile($fileInfo)) continue;
             $migrationFiles[] = new MigrationFile(
                 $fileInfo->getRealPath(),
                 $this->getClassName($fileInfo)
@@ -117,6 +117,15 @@ class FlatMigrationStorage implements MigrationStorage
             }
         }
         return $uses;
+    }
+
+    /**
+     * @param $fileInfo
+     * @return bool
+     */
+    private function isInvalidMigrationFile($fileInfo): bool
+    {
+        return $fileInfo->isDot() || $fileInfo->getExtension() !== 'php';
     }
 
 }
