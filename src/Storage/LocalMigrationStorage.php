@@ -1,5 +1,7 @@
 <?php
-namespace Migrano\Flat;
+declare(strict_types=1);
+
+namespace Migrano\Storage;
 
 use DirectoryIterator;
 use InvalidArgumentException;
@@ -13,7 +15,7 @@ use PhpParser\Parser;
 use PhpParser\ParserFactory;
 use SplFileInfo;
 
-class FlatMigrationStorage implements MigrationStorage
+class LocalMigrationStorage implements MigrationStorage
 {
     /**
      * @var string
@@ -30,16 +32,19 @@ class FlatMigrationStorage implements MigrationStorage
         $this->setPath($path);
     }
 
-    public function listMigrationFiles()
+    public function listMigrationFiles($orderedBy = self::ORDER_ASC)
     {
         $migrationFiles = [];
         foreach (new DirectoryIterator($this->path) as $fileInfo) {
             if($this->isInvalidMigrationFile($fileInfo)) continue;
-            $migrationFiles[] = new MigrationFile(
+            $migrationFiles[$fileInfo->getFilename()] = new MigrationFile(
                 $fileInfo->getRealPath(),
                 $this->getClassName($fileInfo)
             );
         }
+        ($orderedBy === self::ORDER_ASC)
+            ? sort($migrationFiles)
+            : rsort($migrationFiles);
         return $migrationFiles;
     }
 

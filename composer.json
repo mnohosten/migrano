@@ -4,11 +4,17 @@
       "Migrano\\": "src/"
     }
   },
+  "autoload-dev": {
+    "psr-4": {
+      "Migrano\\Tests\\": "tests/"
+    }
+  },
   "require": {
     "psr/container": "^1.0",
     "nikic/php-parser": "^4.0"
   },
   "require-dev": {
-    "phpunit/phpunit": "^6.5"
+    "phpunit/phpunit": "^6.5",
+    "league/container": "^2.4"
   }
 }
