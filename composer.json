@@ -1,4 +1,16 @@
 {
+
+  "name": "mnohosten/migrano",
+  "description": "Migrano is database agnostic migration library that is very easy to implement in any project.",
+  "keywords": ["migration", "database", "agnostic", "PSR-11"],
+  "homepage": "https://github.com/mnohosten/migrano",
+  "license": ["MIT"],
+  "authors": [
+    {
+      "name": "Martin Krizan",
+      "homepage": "https://twitter.com/martinkrizan"
+    }
+  ],
   "autoload": {
     "psr-4": {
       "Migrano\\": "src/"
